@@ -39,26 +39,33 @@
       state: absent
     when: not defaultsite
       
+  - name: Create directory structure
+    win_file:
+      path: "{{ item }}"
+      state: directory
+    with_items:
+      - "{{sitepath}}"
+      - "{{sitelogdir}}"
+  
   - name: Configure Site
     win_iis_website:
       name: "{{sitename}}"
       state: "{{sitestate}}"
-      # port: "{{siteport}}"
-      # ip: "{{siteip}}"
+      port: "{{siteport}}"
+      ip: "{{siteip}}"
       application_pool: "{{sitepool}}"
       physical_path: "{{sitepath}}"
-      # ssl: "{{sitessl}}"
+      ssl: "{{sitessl}}"
       parameters: "logfile.directory:{{sitelogdir}}"
-    ignore_errors: yes
     register: website
 
-  - name: Configure Bindings
-    win_iis_webbinding:
-      name: "{{sitename}}"
-      protocol: "{{bindprotocol}}"
-      port: "{{bindport}}"
-      ip: "{{bindip}}"
-      host_header: "{{bindheader}}"
-      certificate_hash: "{{bindcerthash}}"
-      ssl_flags:  "{{bindflag}}"
-      state: "{{bindstate}}"
+  #- name: Configure Bindings
+    #win_iis_webbinding:
+      #name: "{{sitename}}"
+      #protocol: "{{bindprotocol}}"
+      #port: "{{bindport}}"
+      #ip: "{{bindip}}"
+      #host_header: "{{bindheader}}"
+      #certificate_hash: "{{bindcerthash}}"
+      #ssl_flags:  "{{bindflag}}"
+      #state: "{{bindstate}}"
