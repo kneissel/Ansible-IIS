@@ -39,11 +39,6 @@
       state: absent
     when: not defaultsite
       
-  - name: Remove previous IIS site
-    win_iis_website:
-      name: "{{sitename}}"
-      state: absent
-
   - name: Configure Site
     win_iis_website:
       name: "{{sitename}}"
