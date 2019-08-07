@@ -43,11 +43,11 @@
     win_iis_website:
       name: "{{sitename}}"
       state: "{{sitestate}}"
-      port: "{{siteport}}"
-      ip: "{{siteip}}"
+      # port: "{{siteport}}"
+      # ip: "{{siteip}}"
       application_pool: "{{sitepool}}"
       physical_path: "{{sitepath}}"
-      ssl: "{{sitessl}}"
+      # ssl: "{{sitessl}}"
       parameters: "logfile.directory:{{sitelogdir}}"
     ignore_errors: yes
     register: website
