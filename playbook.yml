@@ -20,10 +20,6 @@
     when: ftp  
     register: win_feature
   
-  - name: Reboot if installing Web-Server feature requires it
-    win_reboot:
-    when: win_feature.reboot_required
-
   - name: Configure Pool
     win_iis_webapppool:
       name: "{{poolname}}"
