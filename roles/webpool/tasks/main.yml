@@ -1,0 +1,13 @@
+---
+- name: Configure Pool
+  win_iis_webapppool:
+    name: "{{webpoolname}}"
+    state: "{{webpoolstate}}"
+    attributes:
+      managedPipelineMode: "{{webpoolpipeline_mode}}"
+      processModel.identityType: SpecificUser
+      processModel.userName: "{{webpoolservice_user}}"
+      processModel.password: "{{webpoolservice_password}}"
+      processModel.loadUserProfile: True
+      managedRuntimeVersion: "{{webpoolmanagedRuntime_version}}"
+      autoStart: "{{webpoolautostart}}"
