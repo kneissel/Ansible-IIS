@@ -32,7 +32,7 @@ None
 Example Playbook
 ----------------
 
-Examples playbook in global *tests* directory are included: 
+Examples playbook are included: 
 
 ```bash
 ansible-playbook fullinstall.yml
