@@ -1,0 +1,5 @@
+- name: Install and configuration of IIS Site
+  hosts: all
+
+  roles:
+    - website
