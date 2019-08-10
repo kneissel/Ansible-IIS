@@ -24,7 +24,7 @@ Role Variables
 | ```websiteip``` | no | *empty string* | Website ip, used if there's not webbindip variable set, if value are different or if websiteport and webbindport values are differents |
 | ```websitepool``` | no | *empty string* | Application pool name |
 | ```websitepath``` | no | *empty string* | The physical path on the IIS server host of the website files |
-| ```websitessl``` | no | *empty string* | Enable ssl binding |
+| ```websitessl``` | no | *empty string* | Enable ssl binding (not working due to an ansible bug) |
 | ```websitelogdir``` | no | *empty string* | The physical path on the IIS server host of the website log files |
 
 

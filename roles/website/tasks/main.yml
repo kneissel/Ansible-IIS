@@ -14,26 +14,13 @@
     - "{{websitelogdir}}"
       
 - name: Configure Site
-  block:
-    - name: Configure Site when site ip and ports equal bind ip and port
-      win_iis_website:
-        name: "{{websitename}}"
-        state: "{{websitestate}}"
-        application_pool: "{{websitepool}}"
-        physical_path: "{{websitepath}}"
-        # ssl: "{{sitessl}}" # Bug not working
-        parameters: "logfile.directory:{{websitelogdir}}"
-      when: (webbindip and websiteip == webbindip and webbindport and websiteport == webbindport) or (webbindip and webbindip == "*" and webbindport and websiteport == webbindport)
-      register: website
-    - name: Configure Site when site ip and ports not equal bind ip and port
-      win_iis_website:
-        name: "{{websitename}}"
-        state: "{{websitestate}}"
-        port: "{{websiteport}}"
-        ip: "{{websiteip}}"
-        application_pool: "{{websitepool}}"
-        physical_path: "{{websitepath}}"
-        # ssl: "{{sitessl}}" # Bug not working
-        parameters: "logfile.directory:{{websitelogdir}}"
-      when: (websiteip != webbindip and webbindip != "*") or (webbindip == "*" and websiteport != webbindport) or (websiteip == webbindip and websiteport != webbindport)
-      register: website
+  win_iis_website:
+    name: "{{websitename}}"
+    state: "{{websitestate}}"
+    port: "{{websiteport}}"
+    ip: "{{websiteip}}"
+    application_pool: "{{websitepool}}"
+    physical_path: "{{websitepath}}"
+    ssl: "{{websitessl}}"
+    parameters: "logfile.directory:{{websitelogdir}}"
+    register: website
