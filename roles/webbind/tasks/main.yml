@@ -7,9 +7,7 @@
 - name: Create self-signed ssl certificat if needed
   win_shell: New-SelfSignedCertificate -DnsName {{webbindheader}} -CertStoreLocation cert:\LocalMachine\My | Select-Object -ExpandProperty Thumbprint 
   register: wincreatecert_result
-  when: webbindprotocol == "https" and not wingetcert_result.stdout_lines[0]
-
-- debug: msg="{{wingetcert_result.stdout_lines[0]}}"
+  when: webbindprotocol == "https" and not wingetcert_result.stdout_lines
 
 - name: Configure Bindings
   block:
@@ -43,4 +41,4 @@
       certificate_hash: "{{wincreatecert_result.stdout_lines[0]}}"
       ssl_flags:  "{{webbindflag}}"
       state: "{{webbindstate}}"
-    when: not wingetcert_result.stdout_lines[0]
+    when: not wingetcert_result.stdout_lines
