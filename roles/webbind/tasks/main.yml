@@ -1,11 +1,11 @@
 ---
 - name: Check if self-signed ssl certificat exist
-  win_shell: dir cert:\LocalMachine\My -Recurse | where {$_.subject -eq "cn={{webbindheader}}"}
+  win_shell: dir cert:\LocalMachine\My -Recurse | where {$_.subject -eq "cn={{webbindheader}}"} | Select-Object -ExpandProperty Thumbprint 
   register: wingetcert_result
   when: webbindprotocol == "https"
 
 - name: Create self-signed ssl certificat if needed
-  win_shell: New-SelfSignedCertificate -DnsName {{webbindheader}} -CertStoreLocation cert:\LocalMachine\My
+  win_shell: New-SelfSignedCertificate -DnsName {{webbindheader}} -CertStoreLocation cert:\LocalMachine\My | Select-Object -ExpandProperty Thumbprint 
   register: wincreatecert_result
   when: webbindprotocol == "https" and not wingetcert_result.stdout
 
@@ -26,7 +26,7 @@
       port: "{{webbindport}}"
       ip: "{{webbindip}}"
       host_header: "{{webbindheader}}"
-      certificate_hash: "{{wingetcert_result.stdout.split()[7]}}"
+      certificate_hash: "{{wingetcert_result.stdout}}"
       ssl_flags:  "{{webbindflag}}"
       state: "{{webbindstate}}"
     when: wingetcert_result.stdout
@@ -38,7 +38,7 @@
       port: "{{webbindport}}"
       ip: "{{webbindip}}"
       host_header: "{{webbindheader}}"
-      certificate_hash: "{{wincreatecert_result.stdout.split()[7]}}"
+      certificate_hash: "{{wincreatecert_result.stdout}}"
       ssl_flags:  "{{webbindflag}}"
       state: "{{webbindstate}}"
     when: not wingetcert_result.stdout
