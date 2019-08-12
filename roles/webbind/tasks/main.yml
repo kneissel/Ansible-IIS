@@ -4,8 +4,7 @@
   register: wingetcert_result
   when: webbindprotocol == "https"
 
-- debug:
-  msg: "{{wingetcert_result.stdout_lines}}"
+- debug: msg="{{wingetcert_result.stdout_lines}}"
 
 - name: Create self-signed ssl certificat if needed
   win_shell: New-SelfSignedCertificate -DnsName {{webbindheader}} -CertStoreLocation cert:\LocalMachine\My | Select-Object -ExpandProperty Thumbprint 
