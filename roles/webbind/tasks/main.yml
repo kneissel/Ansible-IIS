@@ -5,7 +5,7 @@
   when: webbindprotocol == "https"
 
 - name: Create self-signed ssl certificat if needed
-  win_shell: New-SelfSignedCertificate -DnsName {{webbindheader}} -CertStoreLocation cert:\LocalMachine\My | Select-Object -ExpandProperty Thumbprint 
+  win_shell: New-SelfSignedCertificate -DnsName {{webbindheader}} -CertStoreLocation cert:\LocalMachine\My | Select-Object -ExpandProperty Thumbprint
   register: wincreatecert_result
   when: webbindprotocol == "https" and not wingetcert_result.stdout_lines
 
@@ -19,6 +19,7 @@
       ip: "{{websiteip}}"
       state: 'absent'
     when: (websiteip and webbindip == websiteip and websiteport and webbindport == websiteport) or (websiteip and webbindip == "*" and websiteport and webbindport == websiteport)
+
   - name: With existing auto certificate
     win_iis_webbinding:
       name: "{{websitename}}"

@@ -5,7 +5,6 @@
     state: present
     include_sub_features: yes
     include_management_tools: yes
-  register: win_feature
 
 - name: Install IIS Ftp-Server with sub features and management tools
   win_feature:
@@ -13,5 +12,4 @@
     state: present
     include_sub_features: yes
     include_management_tools: yes
-  when: webinstallftp == "1"
-  register: win_feature
+  when: webinstallftp =="1"

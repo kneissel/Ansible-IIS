@@ -13,14 +13,26 @@
     - "{{websitepath}}"
     - "{{websitelogdir}}"
       
-- name: Configure Site
-  win_iis_website:
-    name: "{{websitename}}"
-    state: "{{websitestate}}"
-    port: "{{websiteport}}"
-    ip: "{{websiteip}}"
-    application_pool: "{{websitepool}}"
-    physical_path: "{{websitepath}}"
-    ssl: "{{websitessl}}"
-    parameters: "logfile.directory:{{websitelogdir}}"
-    register: website
+    - name: Configure Site when port is 443 and there is an ip
+      win_iis_website:
+        name: "{{websitename}}"
+        state: "{{websitestate}}"
+        port: "{{websiteport}}"
+        ip: "{{websiteip}}"
+        application_pool: "{{websitepool}}"
+        physical_path: "{{websitepath}}"
+        # ssl: "{{websitessl}}" | not working, ansible bug
+        parameters: "logfile.directory:{{websitelogdir}}"
+      when: websiteip and websiteip != "*"
+
+    - name: Configure Site when port 443 and there is no ip (force change ip to 127.0.0.1)
+      win_iis_website:
+        name: "{{websitename}}"
+        state: "{{websitestate}}"
+        port: "{{websiteport}}"
+        ip: "127.0.0.1"
+        application_pool: "{{websitepool}}"
+        physical_path: "{{websitepath}}"
+        # ssl: "{{websitessl}}" | not working, ansible bug
+        parameters: "logfile.directory:{{websitelogdir}}"
+      when: not websiteip or websiteip == "*"
