@@ -11,7 +11,7 @@
 
 - name: Configure Bindings
   block:
-  - name: When site ip and ports equal bind ip and port
+  - name: Configure Bindings when site ip and ports equal bind ip and port
     win_iis_webbinding:
       name: "{{websitename}}"
       protocol: 'http'
@@ -20,7 +20,7 @@
       state: 'absent'
     when: (websiteip and webbindip == websiteip and websiteport and webbindport == websiteport) or (websiteip and webbindip == "*" and websiteport and webbindport == websiteport)
 
-  - name: With existing auto certificate
+  - name: Configure Bindings with existing auto certificate
     win_iis_webbinding:
       name: "{{websitename}}"
       protocol: "{{webbindprotocol}}"
@@ -30,9 +30,9 @@
       certificate_hash: "{{wingetcert_result.stdout_lines[0]}}"
       ssl_flags:  "{{webbindflag}}"
       state: "{{webbindstate}}"
-    when: wingetcert_result.stdout_lines
+    when: webbindprotocol == "https" and wingetcert_result.stdout_lines
 
-  - name: With new auto certificate
+  - name: Configure Bindings with new auto certificate
     win_iis_webbinding:
       name: "{{websitename}}"
       protocol: "{{webbindprotocol}}"
@@ -42,4 +42,14 @@
       certificate_hash: "{{wincreatecert_result.stdout_lines[0]}}"
       ssl_flags:  "{{webbindflag}}"
       state: "{{webbindstate}}"
-    when: not wingetcert_result.stdout_lines
+    when: webbindprotocol == "https" and not wingetcert_result.stdout_lines
+    
+  - name: Configure Bindings when protocol is not https
+    win_iis_webbinding:
+      name: "{{websitename}}"
+      protocol: "{{webbindprotocol}}"
+      port: "{{webbindport}}"
+      ip: "{{webbindip}}"
+      host_header: "{{webbindheader}}"
+      state: "{{webbindstate}}"
+    when: webbindprotocol != "https"

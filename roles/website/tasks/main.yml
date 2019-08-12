@@ -12,7 +12,9 @@
   with_items:
     - "{{websitepath}}"
     - "{{websitelogdir}}"
-      
+
+- name: Configure Site
+  block:
     - name: Configure Site when port is 443 and there is an ip
       win_iis_website:
         name: "{{websitename}}"
@@ -25,12 +27,12 @@
         parameters: "logfile.directory:{{websitelogdir}}"
       when: websiteip and websiteip != "*"
 
-    - name: Configure Site when port 443 and there is no ip (force change ip to 127.0.0.1)
+    - name: Configure Site when port 443 and there is no ip (due to IIS restriction, force change port to 42443)
       win_iis_website:
         name: "{{websitename}}"
         state: "{{websitestate}}"
-        port: "{{websiteport}}"
-        ip: "127.0.0.1"
+        port: "42443"
+        ip: "{{websiteip}}"
         application_pool: "{{websitepool}}"
         physical_path: "{{websitepath}}"
         # ssl: "{{websitessl}}" | not working, ansible bug
