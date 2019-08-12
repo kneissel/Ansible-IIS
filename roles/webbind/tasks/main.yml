@@ -29,7 +29,7 @@
       certificate_hash: "{{wingetcert_result.stdout_lines[0]}}"
       ssl_flags:  "{{webbindflag}}"
       state: "{{webbindstate}}"
-    when: wingetcert_result.stdout_lines[0]
+    when: wingetcert_result.stdout_lines
 
   - name: With new auto certificate
     win_iis_webbinding:
