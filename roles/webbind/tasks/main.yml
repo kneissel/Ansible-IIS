@@ -9,7 +9,7 @@
   register: wincreatecert_result
   when: webbindprotocol == "https" and not wingetcert_result.stdout_lines
 
-- debug: msg="{{wingetcert_result.stdout_lines}}"
+- debug: msg="{{wingetcert_result.stdout_lines[0]}}"
 
 - name: Configure Bindings
   block:
