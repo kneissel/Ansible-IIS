@@ -1,4 +1,4 @@
-**website** an Ansible role to create/modify Windows IIS site
+**iis_create_site** an Ansible role to create/modify Windows IIS site
 =========
 
 This role handle Windows IIS site creation or modification.
@@ -31,19 +31,16 @@ Role Variables
 Dependencies
 ------------
 
-  - webinstall Role
-  - webapp Role
+  - iis_create_pool Role
   
 
 Example Playbook
 ----------------
 
-Examples playbook are included: 
+Examples playbook are included in tests: 
 
 ```bash
-ansible-playbook install.yml
-or
-ansible-playbook website.yml
+ansible-playbook iis_create_site.yml
 ```
 
 

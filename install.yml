@@ -1,8 +1,0 @@
-- name: Full install and configuration of IIS
-  hosts: all
-
-  roles:
-    - webinstall
-    - webpool
-    - website
-    - webbind

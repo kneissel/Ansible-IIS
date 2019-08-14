@@ -1,4 +1,4 @@
-**webinstall** an Ansible role to install Windows IIS binding
+**iis_install** an Ansible role to install Windows IIS binding
 =========
 
 This role handle Windows IIS installation.
@@ -32,12 +32,10 @@ None
 Example Playbook
 ----------------
 
-Examples playbook are included: 
+Examples playbook are included in tests: 
 
 ```bash
-ansible-playbook fullinstall.yml
-or
-ansible-playbook webinstall.yml
+ansible-playbook iis_install.yml
 ```
 
 

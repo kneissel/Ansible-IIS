@@ -1,4 +1,4 @@
-**webbind** an Ansible role to create/modify Windows IIS binding
+**iis_create_binding** an Ansible role to create/modify Windows IIS binding
 =========
 
 This role handle Windows IIS binding creation or modification.
@@ -35,19 +35,15 @@ Role Variables
 Dependencies
 ------------
 
-  - webinstall Role
-  - webpool Role
-  - website Role
+  - iis_create_site Role
 
 Example Playbook
 ----------------
 
-Examples playbook are included: 
+Examples playbook are included in tests: 
 
 ```bash
-ansible-playbook install.yml
-or
-ansible-playbook webbind.yml
+ansible-playbook iis_create_binding.yml
 ```
 
 

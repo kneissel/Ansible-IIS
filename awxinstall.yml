@@ -2,7 +2,7 @@
   hosts: all
 
   roles:
-    - {role: 'webinstall', tags: 'webinstall'}
-    - {role: 'webpool', tags: 'webpool'}
-    - {role: 'website', tags: 'website'}
-    - {role: 'webbind', tags: 'webbind'}
+    - {role: 'iis_install', tags: 'webinstall'}
+    - {role: 'iis_create_pool', tags: 'webpool'}
+    - {role: 'iis_create_site', tags: 'website'}
+    - {role: 'iis_create_binding', tags: 'webbind'}

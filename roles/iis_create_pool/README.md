@@ -1,4 +1,4 @@
-**webpool** an Ansible role to create/modify Windows IIS pool
+**iis_create_pool** an Ansible role to create/modify Windows IIS pool
 =========
 
 This role handle Windows IIS pool creation or modification.
@@ -20,7 +20,7 @@ Role Variables
 | ```webpoolstate``` | no | 'present' | State of the application pool (absent, present, restarted, started, stopped |
 | ```webpoolpipeline_mode``` | no | *empty string* | managedPipelineMode (Integrated or Classic) |
 | ```webpoolservice_user``` | no | *empty string* | Service user name |
-| ```webpoolservice_password``` | no | *empty string* | Service user password |
+| ```webpoolservice_password``` | no | win_account generated password | Service user password |
 | ```webpoolmanagedRuntime_version``` | no | *empty string* | Runtime Version |
 | ```webpoolautostart``` | no | *empty string* | Autostart (yes or no) |
 
@@ -28,18 +28,17 @@ Role Variables
 Dependencies
 ------------
 
-  - webinstall Role
+  - iis_install Role
+  - win_account Role for AD Service Account
   
 
 Example Playbook
 ----------------
 
-Examples playbook are included: 
+Examples playbook are included in tests: 
 
 ```bash
-ansible-playbook install.yml
-or
-ansible-playbook webpool.yml
+ansible-playbook iis_create_pool.yml
 ```
 
 
