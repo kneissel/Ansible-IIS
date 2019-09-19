@@ -25,6 +25,14 @@ Role Variables
 | ```webinstallftp``` | no | *empty string* | If set to 1, install the ftp part of IIS |
 
 
+**Win Account** related variables
+
+| name | mandatory | defaults | description |
+|------|:---------:|----------|-------------|
+| ```win_user_name``` | yes | *empty string* | Service user name |
+| ```win_account_user_password``` | yes | win_account generated password | Service user password |
+
+
 **IIS Web Pool** related variables
 
 | name | mandatory | defaults | description |
@@ -32,8 +40,6 @@ Role Variables
 | ```webpoolname``` | yes | *empty string* | **name** of the application pool |
 | ```webpoolstate``` | no | 'present' | State of the application pool (absent, present, restarted, started, stopped |
 | ```webpoolpipeline_mode``` | no | *empty string* | managedPipelineMode (Integrated or Classic) |
-| ```webpoolservice_user``` | no | *empty string* | Service user name |
-| ```webpoolservice_password``` | no | win_account generated password | Service user password |
 | ```webpoolmanagedRuntime_version``` | no | *empty string* | Runtime Version |
 | ```webpoolautostart``` | no | *empty string* | Autostart (yes or no) |
 

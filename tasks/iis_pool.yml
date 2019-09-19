@@ -6,8 +6,8 @@
     attributes:
       managedPipelineMode: "{{webpoolpipeline_mode}}"
       processModel.identityType: SpecificUser
-      processModel.userName: "{{webpoolservice_user}}"
-      processModel.password: "{{webpoolservice_password}}"
+      processModel.userName: "{{win_user_name}}"
+      processModel.password: "{{win_account_user_password}}"
       processModel.loadUserProfile: True
       managedRuntimeVersion: "{{webpoolmanagedRuntime_version}}"
       autoStart: "{{webpoolautostart}}"

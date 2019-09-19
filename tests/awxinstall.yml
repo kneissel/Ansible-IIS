@@ -1,8 +1,0 @@
-- name: Install and configuration of IIS
-  hosts: all
-
-  tasks:
-    - {task: 'iis_install', tags: 'webinstall'}
-    - {task: 'iis_create_pool', tags: 'webpool'}
-    - {task: 'iis_create_site', tags: 'website'}
-    - {task: 'iis_create_binding', tags: 'webbind'}

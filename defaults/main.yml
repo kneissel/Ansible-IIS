@@ -1,6 +1,4 @@
 ---
 # Defaults files for iis_install
-webpoolservice_user: ''
-webpoolservice_password: "{{user_password}}"
 websitedefault: '1'
 webinstallftp: '0'

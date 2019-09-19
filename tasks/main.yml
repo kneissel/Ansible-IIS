@@ -1,0 +1,39 @@
+### IIS Installation
+- name: install iis
+  include_tasks:
+    file: iis_install.yml
+    apply:
+      tags: webinstall
+  tags:
+  - webinstall
+
+### IIS Pool Creation
+- name: iis pool
+  include_tasks:
+    file: iis_pool.yml
+    apply:
+      tags: webpool
+  tags:
+  - webpool
+  assert:
+    that:
+      win_user_name is defined
+      win_account_user_password is defined
+
+### IIS Site Creation
+- name: iis site
+  include_tasks:
+    file: iis_site.yml
+    apply:
+      tags: website
+  tags:
+  - website
+
+### IIS Binding Creation
+- name: iis binding
+  include_tasks:
+    file: iis_binding.yml
+    apply:
+      tags: webbind
+  tags:
+  - webbind

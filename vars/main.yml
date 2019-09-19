@@ -1,3 +1,5 @@
+win_user_name: ''
+win_account_user_password: ''
 webpoolname: ''
 webpoolstate: ''
 webpoolpipeline_mode: ''
