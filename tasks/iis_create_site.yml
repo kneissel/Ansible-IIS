@@ -3,7 +3,7 @@
   win_iis_website:
     name: Default Web Site
     state: absent
-  when: not websitedefault
+  when: websitedefault == "0"
 
 - name: Create directory structure
   win_file:

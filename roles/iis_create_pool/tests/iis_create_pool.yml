@@ -1,5 +1,0 @@
-- name: Install and configuration of IIS Application Pool
-  hosts: all
-
-  roles:
-    - iis_create_pool

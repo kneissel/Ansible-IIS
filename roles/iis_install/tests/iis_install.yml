@@ -1,5 +1,0 @@
-- name: Install without configuration of IIS
-  hosts: all
-
-  roles:
-    - iis_install

@@ -1,3 +1,0 @@
----
-# Defaults files for iis_create_pool
-webpoolservice_password: "{{user_password}}"

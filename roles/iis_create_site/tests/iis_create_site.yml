@@ -1,5 +1,0 @@
-- name: Install and configuration of IIS Site
-  hosts: all
-
-  roles:
-    - iis_create_site
