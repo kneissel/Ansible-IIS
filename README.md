@@ -1,12 +1,12 @@
 # Ansible-IIS
 Playbook to install IIS with some tuning
 
-For AWX tests purpose (to test tasks individually), there's tags in the awxinstall.yml test playbook for each task (same as tasks name).
+To use tasks individually, there's tags in the main.yml task.
 
 **iis_install** an Ansible task to install Windows IIS
 =========
 
-This task handle Windows IIS installation, pool creation or modification, site creation or modification and binding creation or modification.
+This role handle Windows IIS installation, pool creation or modification, site creation or modification and binding creation or modification.
 
 
 Requirements
@@ -83,7 +83,7 @@ Example Playbook
 Examples playbook are included in tests: 
 
 ```bash
-ansible-playbook iis_install.yml
+ansible-playbook test.yml
 ```
 
 
