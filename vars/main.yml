@@ -1,22 +1,7 @@
-win_user_name: ''
-win_account_user_password: ''
-webpoolname: ''
-webpoolstate: ''
-webpoolpipeline_mode: ''
-webpoolmanagedRuntime_version: ''
-webpoolautostart: ''
-websitename: ''
-websitestate: ''
-websiteport: ''
-websiteip: ''
-websitepool: ''
-websitepath: ''
-websitessl: ''
-websitelogdir: ''
-webbindprotocol: ''
-webbindport: ''
-webbindip: ''
-webbindheader: ''
-webbindcerthash: ''
-webbindflag: ''
-webbindstate: ''
+---
+# vars files for iis_install
+
+# role's vars file defines variables dedicated for role's internal purpose
+# variables that comes from outside of the role should no be defined here
+# because of the variable scope precedence
+# see https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html#variable-precedence-where-should-i-put-a-variable

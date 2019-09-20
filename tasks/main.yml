@@ -15,10 +15,7 @@
       tags: webpool
   tags:
   - webpool
-  assert:
-    that:
-      win_user_name is defined
-      win_account_user_password is defined
+
 
 ### IIS Site Creation
 - name: iis site

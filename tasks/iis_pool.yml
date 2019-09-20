@@ -1,4 +1,12 @@
 ---
+- name: check mandatory inputs are present
+  assert:
+    that:
+      win_user_name is defined
+      win_account_user_password is defined
+      webpoolname is defined
+      webpoolname | lenght > 0
+
 - name: Configure Pool
   win_iis_webapppool:
     name: "{{webpoolname}}"

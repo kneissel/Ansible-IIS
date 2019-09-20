@@ -1,4 +1,30 @@
 ---
 # Defaults files for iis_install
-websitedefault: '1'
-webinstallftp: '0'
+websitedefault: True
+webinstallftp: False
+
+webpoolname: ''
+webpoolstate: ''
+webpoolpipeline_mode: ''
+webpoolmanagedRuntime_version: ''
+webpoolautostart: ''
+websitename: ''
+websitestate: 'present'
+websiteport: ''
+websiteip: ''
+websitepool: ''
+websitepath: ''
+websitessl: ''
+websitelogdir: ''
+webbindprotocol: 'http'
+webbindport: '80'
+webbindip: '*'
+webbindheader: ''
+webbindcerthash: ''
+webbindflag: ''
+webbindstate: ''
+
+# service account credentials are a prerequisite of this role so they should be defined
+# outside (at playbook scope). Here we just must assert that variables are defined !
+# win_user_name: ''
+# win_account_user_password: ''

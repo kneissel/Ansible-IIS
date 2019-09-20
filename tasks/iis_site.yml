@@ -1,9 +1,15 @@
 ---
+- name: check mandatory inputs are present
+  assert:
+    that:
+      websitename is defined
+      websitename | lenght > 0
+
 - name: Remove default IIS site
   win_iis_website:
     name: Default Web Site
     state: absent
-  when: websitedefault == "0"
+  when: not websitedefault
 
 - name: Create directory structure
   win_file:
@@ -13,28 +19,26 @@
     - "{{websitepath}}"
     - "{{websitelogdir}}"
 
-- name: Configure Site
-  block:
-    - name: Configure Site when port is 443 and there is an ip
-      win_iis_website:
-        name: "{{websitename}}"
-        state: "{{websitestate}}"
-        port: "{{websiteport}}"
-        ip: "{{websiteip}}"
-        application_pool: "{{websitepool}}"
-        physical_path: "{{websitepath}}"
-        # ssl: "{{websitessl}}" | not working, ansible bug
-        parameters: "logfile.directory:{{websitelogdir}}"
-      when: websiteip and websiteip != "*"
+- name: Configure Site when port is 443 and there is an ip
+  win_iis_website:
+    name: "{{websitename}}"
+    state: "{{websitestate}}"
+    port: "{{websiteport}}"
+    ip: "{{websiteip}}"
+    application_pool: "{{websitepool}}"
+    physical_path: "{{websitepath}}"
+    # ssl: "{{websitessl}}" | not working, ansible bug
+    parameters: "logfile.directory:{{websitelogdir}}"
+  when: websiteip and websiteip != "*"
 
-    - name: Configure Site when port 443 and there is no ip (due to IIS restriction, force change port to 42443)
-      win_iis_website:
-        name: "{{websitename}}"
-        state: "{{websitestate}}"
-        port: "42443"
-        ip: "{{websiteip}}"
-        application_pool: "{{websitepool}}"
-        physical_path: "{{websitepath}}"
-        # ssl: "{{websitessl}}" | not working, ansible bug
-        parameters: "logfile.directory:{{websitelogdir}}"
-      when: not websiteip or websiteip == "*"
+- name: Configure Site when port 443 and there is no ip (due to IIS restriction, force change port to 42443)
+  win_iis_website:
+    name: "{{websitename}}"
+    state: "{{websitestate}}"
+    port: "42443"
+    ip: "{{websiteip}}"
+    application_pool: "{{websitepool}}"
+    physical_path: "{{websitepath}}"
+    # ssl: "{{websitessl}}" | not working, ansible bug
+    parameters: "logfile.directory:{{websitelogdir}}"
+  when: not websiteip or websiteip == "*"

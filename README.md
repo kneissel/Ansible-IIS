@@ -22,7 +22,7 @@ Role Variables
 
 | name | mandatory | defaults | description |
 |------|:---------:|----------|-------------|
-| ```webinstallftp``` | no | *empty string* | If set to 1, install the ftp part of IIS |
+| ```webinstallftp``` | no | ```False``` | If set ```True```, install the ftp part of IIS |
 
 
 **Win Account** related variables
@@ -48,7 +48,7 @@ Role Variables
 
 | name | mandatory | defaults | description |
 |------|:---------:|----------|-------------|
-| ```websitedefault``` | no | *empty string* | Set to 0 to remove Default Website |
+| ```websitedefault``` | no | ```True``` | Set to ```False``` to remove Default Website |
 | ```websitename``` | yes | *empty string* | **name** of the Website |
 | ```websitestate``` | no | *empty string* | State of the Website (absent, started, stopped, restarted) |
 | ```websiteport``` | no | *empty string* | Website port, used if there's not webbindport variable set or if values are differents |

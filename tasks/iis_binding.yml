@@ -1,4 +1,10 @@
 ---
+- name: check mandatory inputs are present
+  assert:
+    that:
+      websitename is defined
+      websitename | lenght > 0
+
 - name: Check if self-signed ssl certificat exist
   win_shell: dir cert:\LocalMachine\My -Recurse | where {$_.subject -eq "cn={{webbindheader}}"} | Select-Object -ExpandProperty Thumbprint 
   register: wingetcert_result
@@ -9,47 +15,46 @@
   register: wincreatecert_result
   when: webbindprotocol == "https" and not wingetcert_result.stdout_lines
 
-- name: Configure Bindings
-  block:
-  - name: Configure Bindings when site ip and ports equal bind ip and port
-    win_iis_webbinding:
-      name: "{{websitename}}"
-      protocol: 'http'
-      port: "{{websiteport}}"
-      ip: "{{websiteip}}"
-      state: 'absent'
-    when: (websiteip and webbindip == websiteip and websiteport and webbindport == websiteport) or (websiteip and webbindip == "*" and websiteport and webbindport == websiteport)
+# Configure Bindings
+- name: Configure Bindings when site ip and ports equal bind ip and port
+  win_iis_webbinding:
+    name: "{{websitename}}"
+    protocol: 'http'
+    port: "{{websiteport}}"
+    ip: "{{websiteip}}"
+    state: 'absent'
+  when: (websiteip and webbindip == websiteip and websiteport and webbindport == websiteport) or (websiteip and webbindip == "*" and websiteport and webbindport == websiteport)
 
-  - name: Configure Bindings with existing auto certificate
-    win_iis_webbinding:
-      name: "{{websitename}}"
-      protocol: "{{webbindprotocol}}"
-      port: "{{webbindport}}"
-      ip: "{{webbindip}}"
-      host_header: "{{webbindheader}}"
-      certificate_hash: "{{wingetcert_result.stdout_lines[0]}}"
-      ssl_flags:  "{{webbindflag}}"
-      state: "{{webbindstate}}"
-    when: webbindprotocol == "https" and wingetcert_result.stdout_lines
+- name: Configure Bindings with existing auto certificate
+  win_iis_webbinding:
+    name: "{{websitename}}"
+    protocol: "{{webbindprotocol}}"
+    port: "{{webbindport}}"
+    ip: "{{webbindip}}"
+    host_header: "{{webbindheader}}"
+    certificate_hash: "{{wingetcert_result.stdout_lines[0]}}"
+    ssl_flags:  "{{webbindflag}}"
+    state: "{{webbindstate}}"
+  when: webbindprotocol == "https" and wingetcert_result.stdout_lines
 
-  - name: Configure Bindings with new auto certificate
-    win_iis_webbinding:
-      name: "{{websitename}}"
-      protocol: "{{webbindprotocol}}"
-      port: "{{webbindport}}"
-      ip: "{{webbindip}}"
-      host_header: "{{webbindheader}}"
-      certificate_hash: "{{wincreatecert_result.stdout_lines[0]}}"
-      ssl_flags:  "{{webbindflag}}"
-      state: "{{webbindstate}}"
-    when: webbindprotocol == "https" and not wingetcert_result.stdout_lines
-    
-  - name: Configure Bindings when protocol is not https
-    win_iis_webbinding:
-      name: "{{websitename}}"
-      protocol: "{{webbindprotocol}}"
-      port: "{{webbindport}}"
-      ip: "{{webbindip}}"
-      host_header: "{{webbindheader}}"
-      state: "{{webbindstate}}"
-    when: webbindprotocol != "https"
+- name: Configure Bindings with new auto certificate
+  win_iis_webbinding:
+    name: "{{websitename}}"
+    protocol: "{{webbindprotocol}}"
+    port: "{{webbindport}}"
+    ip: "{{webbindip}}"
+    host_header: "{{webbindheader}}"
+    certificate_hash: "{{wincreatecert_result.stdout_lines[0]}}"
+    ssl_flags:  "{{webbindflag}}"
+    state: "{{webbindstate}}"
+  when: webbindprotocol == "https" and not wingetcert_result.stdout_lines
+  
+- name: Configure Bindings when protocol is not https
+  win_iis_webbinding:
+    name: "{{websitename}}"
+    protocol: "{{webbindprotocol}}"
+    port: "{{webbindport}}"
+    ip: "{{webbindip}}"
+    host_header: "{{webbindheader}}"
+    state: "{{webbindstate}}"
+  when: webbindprotocol != "https"
